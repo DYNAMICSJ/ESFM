@@ -1,0 +1,650 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DYNAMICS - Razonamiento Matemático</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --morado-oscuro: #4a148c;
+      --morado: #7b1fa2;
+      --lila: #9c27b0;
+      --lila-claro: #e1bee7;
+      --lila-suave: #f3e5f5;
+      --whatsapp: #25D366;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #faf5fc;
+      color: #333;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #4a148c, #7b1fa2, #9c27b0);
+      color: white;
+      padding: 90px 0 70px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://www.transparenttextures.com/patterns/cubes.png');
+      opacity: 0.08;
+    }
+
+    .hero h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .hero .badge-custom {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+    }
+
+    /* ===== NAVEGACIÓN RÁPIDA ===== */
+    .nav-modulos {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(123, 31, 162, 0.12);
+      margin-top: -45px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .nav-modulos a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      padding: 20px 10px;
+      display: block;
+      transition: all 0.3s;
+      border-radius: 14px;
+    }
+
+    .nav-modulos a:hover {
+      background: var(--lila-suave);
+      color: var(--morado);
+    }
+
+    /* ===== TÍTULOS DE MÓDULO ===== */
+    .modulo-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 70px 0 30px;
+    }
+
+    .modulo-header .numero {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--morado), var(--lila));
+      color: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(123, 31, 162, 0.3);
+    }
+
+    .modulo-header h2 {
+      font-weight: 700;
+      color: var(--morado-oscuro);
+      margin: 0;
+    }
+
+    /* ===== TARJETAS DE CLASES ===== */
+    .card-clase {
+      border: none;
+      border-radius: 18px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card-clase:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 18px 40px rgba(123, 31, 162, 0.15);
+    }
+
+    .card-clase .img-icon {
+      height: 160px;
+      background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.8rem;
+      color: var(--morado);
+    }
+
+    .card-clase .card-body {
+      padding: 22px;
+    }
+
+    .card-clase h5 {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    /* ===== BOTONES ===== */
+    .btn-clase {
+      background: linear-gradient(135deg, var(--morado), var(--lila));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 20px;
+      font-weight: 500;
+      width: 100%;
+      transition: all 0.3s;
+    }
+
+    .btn-clase:hover {
+      background: linear-gradient(135deg, var(--morado-oscuro), var(--morado));
+      color: white;
+      transform: scale(1.02);
+    }
+
+    /* ===== SOLUCIONARIO ===== */
+    .card-documento {
+      border: none;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+      height: 100%;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .card-documento:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(123, 31, 162, 0.12);
+    }
+
+    .card-documento .icono-doc {
+      font-size: 3.2rem;
+      color: var(--morado);
+      margin-bottom: 15px;
+    }
+
+    /* ===== ACCESO AL SOLUCIONARIO COMO IMAGEN ===== */
+    .solucionario-portada {
+      max-width: 520px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      background: white;
+      box-shadow: 0 12px 35px rgba(123, 31, 162, 0.18);
+      transition: all 0.3s ease;
+      border: 3px solid transparent;
+    }
+
+    .solucionario-portada:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 20px 45px rgba(123, 31, 162, 0.28);
+      border-color: var(--lila);
+    }
+
+    .solucionario-portada img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .solucionario-portada .portada-texto {
+      padding: 18px 20px 20px;
+      text-align: center;
+    }
+
+    .solucionario-portada .portada-texto h4 {
+      color: var(--morado-oscuro);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .modal-solucionarios .modal-content {
+      border: none;
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .modal-solucionarios .modal-header {
+      background: linear-gradient(135deg, #4a148c, #9c27b0);
+      color: white;
+      border: none;
+    }
+
+    .modal-solucionarios .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-solucionarios .card-documento {
+      border: 1px solid #eee;
+    }
+
+    /* ===== WHATSAPP ===== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: var(--whatsapp);
+      color: white;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.12);
+      color: white;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(135deg, #4a148c, #6a1b9a);
+      color: white;
+      padding: 40px 0;
+      margin-top: 90px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero {
+        padding: 70px 0 60px;
+      }
+
+      .modulo-header {
+        margin-top: 50px;
+      }
+    }
+
+    /* ===== PÁGINA INTERNA DE SOLUCIONARIOS ===== */
+    .solucionario-principal{cursor:pointer;padding:0;overflow:hidden;position:relative}
+    .solucionario-portada{width:100%;height:300px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#4a148c,#7b1fa2,#9c27b0);position:relative}
+    .portada-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;background:linear-gradient(to bottom,rgba(74,20,140,.15),rgba(74,20,140,.72));text-shadow:0 3px 12px rgba(0,0,0,.35)}
+    .portada-overlay i{font-size:4rem;margin-bottom:10px}
+    .portada-overlay h3{font-weight:700;margin:0}
+    .portada-overlay p{margin:8px 0 0}
+    #paginaSolucionarios{display:none;min-height:100vh;background:#faf5fc;padding-bottom:80px}
+    #paginaSolucionarios.activa{display:block}
+    #contenidoPrincipal.oculto{display:none}
+    .barra-solucionarios{position:sticky;top:0;z-index:1000;background:rgba(74,20,140,.98);color:#fff;box-shadow:0 5px 20px rgba(0,0,0,.15)}
+    .barra-solucionarios .container{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .btn-volver{border:1px solid rgba(255,255,255,.45);color:#fff;background:rgba(255,255,255,.12);border-radius:12px;padding:10px 17px;font-weight:600;text-decoration:none;transition:.2s}
+    .btn-volver:hover{background:#fff;color:var(--morado)}
+    .solucionarios-titulo{text-align:center;padding:55px 15px 35px}
+    .solucionarios-titulo h1{color:var(--morado-oscuro);font-weight:700;margin-bottom:8px}
+    .solucionarios-titulo p{color:#777}
+    .tarjeta-solucionario{height:100%;background:#fff;border-radius:20px;padding:28px 22px;box-shadow:0 8px 25px rgba(0,0,0,.07);border:1px solid rgba(123,31,162,.08);transition:.25s;text-align:center}
+    .tarjeta-solucionario:hover{transform:translateY(-6px);box-shadow:0 15px 35px rgba(123,31,162,.15)}
+    .tarjeta-solucionario .icono{width:78px;height:78px;margin:0 auto 18px;border-radius:20px;background:linear-gradient(135deg,#f3e5f5,#e1bee7);color:var(--morado);display:flex;align-items:center;justify-content:center;font-size:2.4rem}
+    .tarjeta-solucionario h4{font-weight:700;color:#333}
+    .btn-inicio{position:fixed;right:24px;bottom:24px;width:58px;height:58px;border:none;border-radius:50%;background:var(--morado);color:#fff;box-shadow:0 8px 25px rgba(123,31,162,.35);z-index:1100;display:flex;align-items:center;justify-content:center;font-size:1.45rem;text-decoration:none}
+    .btn-inicio:hover{background:var(--morado-oscuro);color:#fff;transform:scale(1.06)}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero text-center">
+    <div class="container position-relative">
+
+      <span class="badge-custom mb-3 d-inline-block">
+        <i class="bi bi-mortarboard-fill me-2"></i>
+        Instituto DYNAMICS
+      </span>
+
+      <h1 class="mb-3">
+        Clases de Razonamiento Matemático
+      </h1>
+
+      <p class="lead mb-4 opacity-90">
+        Módulos organizados • Clases grabadas • Material de apoyo
+      </p>
+
+      <a href="https://wa.me/59175828534"
+         class="btn btn-light btn-lg px-5 fw-semibold"
+         target="_blank">
+
+        <i class="bi bi-whatsapp me-2"></i>
+        Contáctanos
+
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- ===================== NAVEGACIÓN RÁPIDA ===================== -->
+  <div class="container">
+
+    <div class="nav-modulos row text-center g-0">
+
+      <div class="col-4">
+        <a href="#modulo1">
+
+          <i class="bi bi-1-circle-fill d-block mb-1 fs-3"
+             style="color:#7b1fa2;"></i>
+
+          Módulo I
+
+        </a>
+      </div>
+
+      <div class="col-4">
+        <a href="#modulo2">
+
+          <i class="bi bi-2-circle-fill d-block mb-1 fs-3"
+             style="color:#7b1fa2;"></i>
+
+          Módulo II
+
+        </a>
+      </div>
+
+      <div class="col-4">
+        <a href="#modulo3">
+
+          <i class="bi bi-3-circle-fill d-block mb-1 fs-3"
+             style="color:#7b1fa2;"></i>
+
+          Módulo III
+
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div id="contenidoPrincipal" class="container pb-5">
+
+
+    <!-- ===================== MÓDULO I ===================== -->
+    <div id="modulo1" class="modulo-header">
+
+      <div class="numero">
+        I
+      </div>
+
+      <div>
+
+        <h2>
+          Módulo I
+        </h2>
+
+        <small class="text-muted">
+          Clases grabadas de Razonamiento Matemático
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================== MÓDULO II ===================== -->
+    <div id="modulo2" class="modulo-header">
+
+      <div class="numero">
+        II
+      </div>
+
+      <div>
+
+        <h2>
+          Módulo II
+        </h2>
+
+        <small class="text-muted">
+          Clases grabadas de Razonamiento Matemático
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================== MÓDULO III ===================== -->
+    <div id="modulo3" class="modulo-header">
+
+      <div class="numero">
+        III
+      </div>
+
+      <div>
+
+        <h2>
+          Módulo III
+        </h2>
+
+        <small class="text-muted">
+          Clases grabadas de Razonamiento Matemático
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ===================================================== -->
+    <!-- ===================== SOLUCIONARIO ================== -->
+    <div class="modulo-header mt-5">
+      <div class="numero" style="background:linear-gradient(135deg,#6a1b9a,#8e24aa);">
+        <i class="bi bi-journal-check"></i>
+      </div>
+      <div>
+        <h2>Solucionario de Banco de Preguntas</h2>
+        <small class="text-muted">Haz clic en la imagen para abrir todos los solucionarios</small>
+      </div>
+    </div>
+
+    <!-- PORTADA CLICKEABLE -->
+    <div class="card-documento solucionario-principal"
+         onclick="abrirPaginaSolucionarios()"
+         role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter'||event.key===' ')abrirPaginaSolucionarios();">
+      <div class="solucionario-portada">
+        <div class="portada-overlay">
+          <i class="bi bi-journal-bookmark-fill"></i>
+          <h3>Banco de Solucionarios</h3>
+          <p>Haz clic aquí para entrar</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- FIN CONTAINER -->
+
+  <!-- ===================================================== -->
+  <!-- PÁGINA INTERNA DE SOLUCIONARIOS                       -->
+  <!-- ===================================================== -->
+  <div id="paginaSolucionarios">
+
+    <div class="barra-solucionarios">
+      <div class="container">
+        <a href="#" class="btn-volver" onclick="cerrarPaginaSolucionarios();return false;">
+          <i class="bi bi-arrow-left me-2"></i> Atrás
+        </a>
+        <div class="fw-bold"><i class="bi bi-journal-check me-2"></i>SOLUCIONARIOS</div>
+        <a href="#" class="btn-volver" onclick="volverAlInicio();return false;">
+          <i class="bi bi-house-fill me-2"></i> Inicio
+        </a>
+      </div>
+    </div>
+
+    <div class="solucionarios-titulo">
+      <h1>Banco de Solucionarios</h1>
+      <p>Selecciona el material que deseas consultar</p>
+    </div>
+
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4"><div class="tarjeta-solucionario">
+          <div class="icono"><i class="bi bi-journal-check"></i></div>
+          <h4>Solucionario Módulo I</h4>
+          <p class="text-muted small mb-4">Banco de preguntas resuelto 1 - 98</p>
+          <a href="https://drive.google.com/file/d/1euvUqeEMlcQTDeEeiNeBK29VSyChwECY/view?usp=drive_link" class="btn btn-clase w-100 mb-2" target="_blank"><i class="bi bi-play-circle-fill me-2"></i>Ver Video</a>
+          <a href="https://drive.google.com/file/d/1-ANvKojWqnAyhzd80ZsulXVen_Z9JOpi/view?usp=drive_link" class="btn btn-clase w-100" target="_blank"><i class="bi bi-file-earmark-pdf-fill me-2"></i>Descargar PDF</a>
+        </div></div>
+
+        <div class="col-md-6 col-lg-4"><div class="tarjeta-solucionario">
+          <div class="icono"><i class="bi bi-journal-check"></i></div>
+          <h4>Solucionario Módulo II</h4>
+          <p class="text-muted small mb-4">Banco de preguntas resuelto 98 - 198</p>
+          <a href="https://drive.google.com/file/d/1MP0NgHLKJ2_hUcTCLB1Uu07UdMVQWMly/view?usp=drive_link" class="btn btn-clase w-100 mb-2" target="_blank"><i class="bi bi-play-circle-fill me-2"></i>Ver Video</a>
+          <a href="https://drive.google.com/file/d/1WciD7RucIG1o88zaP-qgE5C85Td3p26Z/view?usp=drive_link" class="btn btn-clase w-100" target="_blank"><i class="bi bi-file-earmark-pdf-fill me-2"></i>Descargar PDF</a>
+        </div></div>
+
+        <div class="col-md-6 col-lg-4"><div class="tarjeta-solucionario">
+          <div class="icono"><i class="bi bi-journal-check"></i></div>
+          <h4>Solucionario Módulo III</h4>
+          <p class="text-muted small mb-4">Banco de preguntas resuelto 99 - 230</p>
+          <a href="https://drive.google.com/file/d/1h7EbrK4dSQgVHWeWqmH1hQ0kPrnz0yO1/view?usp=drive_link" class="btn btn-clase w-100 mb-2" target="_blank"><i class="bi bi-play-circle-fill me-2"></i>Ver Video</a>
+          <a href="https://drive.google.com/file/d/1KIDScCNHpbK2kWCLCFQ5ay-qDa7WcNVF/view?usp=drive_link" class="btn btn-clase w-100" target="_blank"><i class="bi bi-file-earmark-pdf-fill me-2"></i>Descargar PDF</a>
+        </div></div>
+
+        <div class="col-md-6 col-lg-4"><div class="tarjeta-solucionario">
+          <div class="icono"><i class="bi bi-journal-check"></i></div>
+          <h4>Solucionario 230 - 250</h4>
+          <p class="text-muted small mb-4">Banco de preguntas resuelto 230 - 250</p>
+          <a href="https://drive.google.com/file/d/19vKEFb1do93PJmDd7TjnhULNDr6hB1ew/view?usp=drive_link" class="btn btn-clase w-100 mb-2" target="_blank"><i class="bi bi-play-circle-fill me-2"></i>Ver Video</a>
+          <a href="https://drive.google.com/file/d/1EZUSGHWKU_9rJCisWfOFQScAwkCAKKN0/view?usp=drive_link" class="btn btn-clase w-100" target="_blank"><i class="bi bi-file-earmark-pdf-fill me-2"></i>Descargar PDF</a>
+        </div></div>
+
+        <div class="col-md-6 col-lg-4"><div class="tarjeta-solucionario">
+          <div class="icono"><i class="bi bi-journal-check"></i></div>
+          <h4>Solucionario 250 - 265</h4>
+          <p class="text-muted small mb-4">Banco de preguntas resuelto 250 - 265</p>
+          <a href="https://drive.google.com/file/d/1wZhEmivaPQopTkxjx35XBDWOnkuaFVzb/view?usp=drive_link" class="btn btn-clase w-100 mb-2" target="_blank"><i class="bi bi-play-circle-fill me-2"></i>Ver Video</a>
+          <a href="https://drive.google.com/file/d/19Nt_MRANLCvmC28AP_l8mvPGIgsKFMTN/view?usp=drive_link" class="btn btn-clase w-100" target="_blank"><i class="bi bi-file-earmark-pdf-fill me-2"></i>Descargar PDF</a>
+        </div></div>
+
+        <div class="col-md-6 col-lg-4"><div class="tarjeta-solucionario">
+          <div class="icono"><i class="bi bi-journal-check"></i></div>
+          <h4>Solucionario 266 - 300</h4>
+          <p class="text-muted small mb-4">Banco de preguntas resuelto 266 - 300</p>
+          <a href="https://drive.google.com/file/d/1BFdbCkz7ubLp6yDchncGYpN9mxn6ykrM/view?usp=drive_link" class="btn btn-clase w-100 mb-2" target="_blank"><i class="bi bi-play-circle-fill me-2"></i>Ver Video</a>
+          <a href="https://drive.google.com/file/d/143xK-PCmZFOdvxkLApYx4kfGvx1SXm-7/view?usp=drive_link" class="btn btn-clase w-100" target="_blank"><i class="bi bi-file-earmark-pdf-fill me-2"></i>Descargar PDF</a>
+        </div></div>
+
+      </div>
+    </div>
+
+    <a href="#" class="btn-inicio" title="Volver al principio" onclick="volverAlInicio();return false;">
+      <i class="bi bi-house-fill"></i>
+    </a>
+  </div>
+
+
+
+
+  <!-- ===================== WHATSAPP ===================== -->
+
+  <a href="https://wa.me/59175828534"
+     class="whatsapp-float"
+     target="_blank"
+     title="Escríbenos por WhatsApp">
+
+    <i class="bi bi-whatsapp"></i>
+
+  </a>
+
+
+
+  <!-- ===================== FOOTER ===================== -->
+
+  <footer class="text-center">
+
+    <div class="container">
+
+      <h5 class="fw-bold mb-2">
+        DYNAMICS
+      </h5>
+
+      <p class="mb-1 opacity-75">
+        Clases de Razonamiento Matemático
+      </p>
+
+      <p class="small opacity-50 mb-0">
+        © 2025 - Todos los derechos reservados
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <script>
+    function abrirPaginaSolucionarios(){
+      document.getElementById('contenidoPrincipal').classList.add('oculto');
+      document.getElementById('paginaSolucionarios').classList.add('activa');
+      window.scrollTo(0,0);
+      history.pushState({solucionarios:true},'', '#solucionarios');
+    }
+
+    function cerrarPaginaSolucionarios(){
+      document.getElementById('paginaSolucionarios').classList.remove('activa');
+      document.getElementById('contenidoPrincipal').classList.remove('oculto');
+      history.replaceState(null,'',window.location.pathname+window.location.search);
+      window.scrollTo(0,0);
+    }
+
+    function volverAlInicio(){
+      document.getElementById('paginaSolucionarios').classList.remove('activa');
+      document.getElementById('contenidoPrincipal').classList.remove('oculto');
+      history.replaceState(null,'',window.location.pathname+window.location.search);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    window.addEventListener('popstate',function(){ cerrarPaginaSolucionarios(); });
+  </script>
+
+</body>
+</html>
